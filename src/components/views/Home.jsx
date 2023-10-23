@@ -18,7 +18,7 @@ function Home() {
   };
 
   useEffect(() => {
-    apiGetModuleLeaderStudents;
+    apiGetModuleLeaderStudents(endpoint);
   }, []);
   //Handlers
 
@@ -34,9 +34,7 @@ function Home() {
       ) : (
         <CardContainer>
           {students.map((student) => (
-            <Card>
-              <p1>student.id</p1>
-            </Card>
+            <Card key={student.UserID} name={student.FirstName} />
           ))}
         </CardContainer>
       )}
