@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Home.scss";
-import { Card, CardContainer } from "../UI/Card";
+import { CardContainer } from "../UI/Card";
+import { ImageCard } from "../UI/ImageCard";
 import api from "../../api/Api";
 
 function Home() {
@@ -15,11 +16,13 @@ function Home() {
     response.isSuccess
       ? setStudents(response.result)
       : setLoadingMessage("No students found");
+    console.log(response.result);
   };
 
   useEffect(() => {
     apiGetModuleLeaderStudents(endpoint);
   }, []);
+
   //Handlers
 
   //View
@@ -34,7 +37,12 @@ function Home() {
       ) : (
         <CardContainer>
           {students.map((student) => (
-            <Card key={student.UserID} name={student.FirstName} />
+            <ImageCard
+              key={student.UserID}
+              title={`${student.FirstName} ${student.LastName}`}
+              subtitle={student.Email}
+              imgUrl={student.UserImageURL}
+            />
           ))}
         </CardContainer>
       )}

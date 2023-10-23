@@ -1,9 +1,10 @@
 import { Card } from "./Card";
+import { PropTypes } from "prop-types";
 
-export function ImageCard(imgUrl, title, subtitle) {
+export function ImageCard(key, imgUrl, title, subtitle) {
   return (
     <div className="ImageCard">
-      <Card>
+      <Card key={key}>
         <p>{title}</p>
         <p>{subtitle}</p>
         <img src={imgUrl} />
@@ -11,4 +12,12 @@ export function ImageCard(imgUrl, title, subtitle) {
     </div>
   );
 }
+ImageCard.propTypes = {
+  module: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    imgUrl: PropTypes.string.isRequired,
+  }),
+};
+
 export default ImageCard;
