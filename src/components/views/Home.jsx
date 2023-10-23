@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Home.scss";
 import { Card, CardContainer } from "../UI/Card";
 import api from "../../api/Api";
@@ -12,9 +12,9 @@ function Home() {
   //Api
   const apiGetModuleLeaderStudents = async (endpoint) => {
     const response = await api.get(endpoint);
-    if (response.isSuccess) {
-      setStudents(response.result);
-    } else setLoadingMessage("No students found");
+    response.isSuccess
+      ? setStudents(response.result)
+      : setLoadingMessage("No students found");
   };
 
   useEffect(() => {
