@@ -4,9 +4,9 @@ import { Card, CardContainer } from "../UI/Card";
 import { ImageCard } from "../UI/ImageCard";
 import api from "../../api/Api";
 
-function Home() {
+function Home(props) {
   //Intitializing
-  const endpoint = `/students/moduleLeader`;
+  const endpoint = `/students/moduleLeader/${props.loggedInUser}`;
   //States
   const [students, setStudents] = useState([]);
   const [loadingMessage, setLoadingMessage] = useState([]);
@@ -29,7 +29,7 @@ function Home() {
   //View
   return (
     <>
-      <h1>Modules</h1>
+      <h1>Students</h1>
 
       {!students ? (
         <p>{loadingMessage}</p>
