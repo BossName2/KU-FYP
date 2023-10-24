@@ -1,9 +1,11 @@
-
 header {
   padding: 0 5px;
-  background: Black;
+  background: rgb(0, 1, 48);
 
-  h1 { color: White; }
-  p.welcome { color: LimeGreen; }
+  h1 {
+    color: White;
+  }
+  p.welcome {
+    color: rgb(0, 103, 151);
+  }
 }
-
