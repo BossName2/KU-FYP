@@ -1,12 +1,15 @@
 import { Card } from "./Card";
 import { PropTypes } from "prop-types";
+import { Link } from "react-router-dom";
+import "./ImageCard.scss";
 
 export function ImageCard(key, imgUrl, title, subtitle) {
+  console.log(`${subtitle}`);
   return (
     <div className="ImageCard">
       <Card key={key}>
-        <p>{title}</p>
-        <p>{subtitle}</p>
+        <div className="Title">{title}</div>
+        <div className="Subtitle">{subtitle}</div>
         <img src={imgUrl} />
       </Card>
     </div>

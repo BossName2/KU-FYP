@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Home.scss";
-import { CardContainer } from "../UI/Card";
+import { Card, CardContainer } from "../UI/Card";
 import { ImageCard } from "../UI/ImageCard";
 import api from "../../api/Api";
 
@@ -17,6 +17,7 @@ function Home() {
       ? setStudents(response.result)
       : setLoadingMessage("No students found");
     console.log(response.result);
+    console.log(response.result[0].Email);
   };
 
   useEffect(() => {
@@ -36,14 +37,28 @@ function Home() {
         <p>No students found</p>
       ) : (
         <CardContainer>
-          {students.map((student) => (
+          {/* {students.map((student) => (
             <ImageCard
               key={student.UserID}
               title={`${student.FirstName} ${student.LastName}`}
-              subtitle={student.Email}
+              subtitle={"string"}
               imgUrl={student.UserImageURL}
             />
-          ))}
+          ))} */}
+          {students.map((student) => {
+            return (
+              <div className="studentCard">
+                <Card>
+                  <p>{student.Email.substring(0, 8)}</p>
+                  <p>{`${student.FirstName} ${student.LastName}`}</p>
+                  <img
+                    src={student.UserImageURL}
+                    alt={student.Email.substring(0, 8)}
+                  />
+                </Card>
+              </div>
+            );
+          })}
         </CardContainer>
       )}
     </>
