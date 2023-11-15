@@ -1,0 +1,21 @@
+.ActionTray {
+  .Action {
+    padding: 3px 10px;
+    font-size: 15px;
+    margin: 3px;
+    border-radius: 5px;
+    border: 1px solid #e1e4e8;
+    background: rgba(0, 0, 0, 0);
+    transition: box-shadow 0.15s, transform 0.15s;
+    color: black;
+    font-style: bold;
+    cursor: pointer;
+  }
+  .Action:hover {
+    transform: translateY(-1px);
+  }
+
+  .Action:active {
+    transform: translateY(1px);
+  }
+}

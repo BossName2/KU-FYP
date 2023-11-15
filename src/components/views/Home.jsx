@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import "./Home.scss";
 import { Card, CardContainer } from "../UI/Card";
 import { ImageCard } from "../UI/ImageCard";
+import Modal from "../UI/Modal";
+import Action from "../UI/Action";
 import api from "../../api/Api";
+import StudentForm from "../Entity/StudentForm";
 
 function Home(props) {
   //Intitializing
@@ -10,6 +13,7 @@ function Home(props) {
   //States
   const [students, setStudents] = useState([]);
   const [loadingMessage, setLoadingMessage] = useState([]);
+  const [showSrudentForm, setShowSrudentForm] = useState(false);
   //Api
   const apiGetModuleLeaderStudents = async (endpoint) => {
     const response = await api.get(endpoint);
@@ -29,15 +33,34 @@ function Home(props) {
   //View
   return (
     <>
-      <h1>Students</h1>
-
+      <div className="top">
+        <h1>Students</h1>
+        <div className="formDisplay">
+          <Action.Tray>
+            <Action.Close
+              showText
+              onClick={() => setShowSrudentForm(!showSrudentForm)}
+              buttonText="Add Student"
+            />
+          </Action.Tray>
+        </div>
+        <Modal
+          show={showSrudentForm}
+          handleClose={() => setShowSrudentForm(false)}
+        >
+          <div className="form">
+            <StudentForm onSuccess={() => setShowSrudentForm(false)} />
+          </div>
+        </Modal>
+      </div>
       {!students ? (
         <p>{loadingMessage}</p>
       ) : students.length === 0 ? (
         <p>No students found</p>
       ) : (
-        <CardContainer>
-          {/* {students.map((student) => (
+        <>
+          <CardContainer>
+            {/* {students.map((student) => (
             <ImageCard
               key={student.UserID}
               title={`${student.FirstName} ${student.LastName}`}
@@ -45,21 +68,22 @@ function Home(props) {
               imgUrl={student.UserImageURL}
             />
           ))} */}
-          {students.map((student) => {
-            return (
-              <div className="studentCard">
-                <Card>
-                  <p>{student.Email.substring(0, 8)}</p>
-                  <p>{`${student.FirstName} ${student.LastName}`}</p>
-                  <img
-                    src={student.UserImageURL}
-                    alt={student.Email.substring(0, 8)}
-                  />
-                </Card>
-              </div>
-            );
-          })}
-        </CardContainer>
+            {students.map((student) => {
+              return (
+                <div className="studentCard">
+                  <Card>
+                    <p>{student.Email.substring(0, 8)}</p>
+                    <p>{`${student.FirstName} ${student.LastName}`}</p>
+                    <img
+                      src={student.UserImageURL}
+                      alt={student.Email.substring(0, 8)}
+                    />
+                  </Card>
+                </div>
+              );
+            })}
+          </CardContainer>
+        </>
       )}
     </>
   );
