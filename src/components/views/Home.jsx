@@ -3,6 +3,7 @@ import "./Home.scss";
 import { Card, CardContainer } from "../UI/Card";
 import { ImageCard } from "../UI/ImageCard";
 import Modal from "../UI/Modal";
+import Action from "../UI/Action";
 import api from "../../api/Api";
 import StudentForm from "../Entity/StudentForm";
 
@@ -35,9 +36,13 @@ function Home(props) {
       <div className="top">
         <h1>Students</h1>
         <div className="formDisplay">
-          <button onClick={() => setShowSrudentForm(!showSrudentForm)}>
-            Add Student
-          </button>
+          <Action.Tray>
+            <Action.Close
+              showText
+              onClick={() => setShowSrudentForm(!showSrudentForm)}
+              buttonText="Add Student"
+            />
+          </Action.Tray>
         </div>
         <Modal
           show={showSrudentForm}

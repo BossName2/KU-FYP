@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
+import "./Action.scss";
 
-// -----------------------------------------
 // Action Button ---------------------------
-// -----------------------------------------
 
 export default function Action({ children, onClick, showText, buttonText }) {
   return (
@@ -19,9 +18,7 @@ Action.propTypes = {
   buttonText: PropTypes.string.isRequired,
 };
 
-// -----------------------------------------
 // Action Tray -----------------------------
-// -----------------------------------------
 
 Tray.propTypes = {
   children: PropTypes.oneOfType([
@@ -58,7 +55,7 @@ export function Cancel({ onClick, showText = false, buttonText = "Cancel" }) {
 
 Close.propTypes = ActionPropTypes;
 
-export function Close({ onClick, showText = false, buttonText = "Close" }) {
+export function Close({ onClick, showText = false, buttonText = "×" }) {
   return (
     <Action
       buttonText={buttonText}
