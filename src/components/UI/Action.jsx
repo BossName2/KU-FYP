@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import "./Action.scss";
 
 // Action Button ---------------------------
@@ -77,6 +78,36 @@ export function Submit({ onClick, showText = false, buttonText = "Submit" }) {
   );
 }
 
+Toggle.propTypes = ActionPropTypes;
+Toggle.propTypes = {
+  onClickTrue: PropTypes.func,
+  onClickFalse: PropTypes.func,
+};
+
+export function Toggle({
+  onClickTrue,
+  onClickFalse,
+  showText = false,
+  buttonText = "Toggle",
+}) {
+  const [isToggled, toggle] = useState(false);
+  const clicked = () => {
+    if (isToggled == true) {
+      onClickTrue;
+    } else {
+      onClickFalse;
+    }
+    toggle(!isToggled);
+  };
+  return (
+    <Action
+      buttonText={buttonText}
+      onClick={clicked}
+      showText={showText}
+    ></Action>
+  );
+}
+
 // -----------------------------------------
 // Compose Action Object -------------------
 // -----------------------------------------
@@ -86,3 +117,4 @@ Action.Tray = Tray;
 Action.Cancel = Cancel;
 Action.Close = Close;
 Action.Submit = Submit;
+Action.Toggle = Toggle;

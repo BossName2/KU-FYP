@@ -1,0 +1,12 @@
+.grid-container {
+  .grid-row {
+    display: grid;
+    grid-auto-flow: column;
+    .grid-column {
+      display: inline-grid;
+      background-color: aqua;
+      height: 50px;
+      justify-content: center;
+    }
+  }
+}
