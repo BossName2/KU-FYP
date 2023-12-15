@@ -6,6 +6,7 @@ import Modal from "../UI/Modal";
 import Action from "../UI/Action";
 import api from "../../api/Api";
 import StudentForm from "../Entity/StudentForm";
+import AvailablityForm from "../Entity/AvailablityForm";
 
 function Home(props) {
   //Intitializing
@@ -14,6 +15,7 @@ function Home(props) {
   const [students, setStudents] = useState([]);
   const [loadingMessage, setLoadingMessage] = useState([]);
   const [showSrudentForm, setShowSrudentForm] = useState(false);
+  const [showAvailablityForm, setShowAvailablityForm] = useState(false);
   //Api
   const apiGetModuleLeaderStudents = async (endpoint) => {
     const response = await api.get(endpoint);
@@ -29,7 +31,6 @@ function Home(props) {
   }, []);
 
   //Handlers
-
   //View
   return (
     <>
@@ -50,6 +51,23 @@ function Home(props) {
         >
           <div className="form">
             <StudentForm onSuccess={() => setShowSrudentForm(false)} />
+          </div>
+        </Modal>
+        <div className="formTest">
+          <Action.Tray>
+            <Action.Close
+              showText
+              onClick={() => setShowAvailablityForm(!showAvailablityForm)}
+              buttonText="test"
+            />
+          </Action.Tray>
+        </div>
+        <Modal
+          show={showAvailablityForm}
+          handleClose={() => setShowAvailablityForm(false)}
+        >
+          <div className="form">
+            <AvailablityForm></AvailablityForm>
           </div>
         </Modal>
       </div>
