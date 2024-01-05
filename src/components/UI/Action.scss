@@ -4,7 +4,7 @@
     font-size: 15px;
     margin: 3px;
     border-radius: 5px;
-    border: 1px solid #e1e4e8;
+    border: 1px solid #3a3a3a;
     background: rgba(0, 0, 0, 0);
     transition: box-shadow 0.15s, transform 0.15s;
     color: black;
@@ -17,5 +17,38 @@
 
   .Action:active {
     transform: translateY(1px);
+  }
+  .ToggleTrue {
+    .Action {
+      width: 25px;
+      height: 25px;
+      background: rgb(255, 0, 0);
+      padding: 0px 0px;
+      font-size: 15px;
+      margin: 0px;
+      border-radius: 5px;
+      border: 1px solid #e1e4e8;
+      transition: box-shadow 0.15s, transform 0.15s;
+      color: black;
+      font-style: bold;
+      cursor: pointer;
+    }
+  }
+  .ToggleFalse {
+    .Action {
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      background: rgb(0, 255, 21);
+      padding: 0px 0px;
+      font-size: 15px;
+      margin: 0px;
+      border-radius: 5px;
+      border: 1px solid #e1e4e8;
+      transition: box-shadow 0.15s, transform 0.15s;
+      color: black;
+      font-style: bold;
+      cursor: pointer;
+    }
   }
 }

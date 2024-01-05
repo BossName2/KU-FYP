@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import "./GridForm.scss";
 
 const GridForm = ({ row, column, onClickTrue, onClickFalse }) => {
-  console.log(row);
   return (
     <div className="grid-container">
       <div className="grid-row">
@@ -13,23 +12,23 @@ const GridForm = ({ row, column, onClickTrue, onClickFalse }) => {
             Day
           </div>
         ))}
+        {row.map((rowNum, index) => (
+          <div key={index} className="grid-row">
+            Time
+            {column.map((item, index) => (
+              <div key={index} className="grid-column">
+                <Action.Tray>
+                  <Action.Toggle
+                    showText
+                    onClickTrue={() => onClickTrue(rowNum, item)}
+                    onClickFalse={() => onClickFalse(rowNum, item)}
+                  />
+                </Action.Tray>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-      {row.map((item, index) => (
-        <div key={index} className="grid-row">
-          Time
-          {column.map((item, index) => (
-            <div key={index} className="grid-column">
-              <Action.Tray>
-                <Action.Toggle
-                  showText
-                  onClickTrue={onClickTrue}
-                  onClickFalse={onClickFalse}
-                />
-              </Action.Tray>
-            </div>
-          ))}
-        </div>
-      ))}
     </div>
   );
 };

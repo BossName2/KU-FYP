@@ -10,7 +10,7 @@ const Modal = ({ handleClose, show, children }) => {
         <Action.Tray>
           <Action.Close showText onClick={handleClose} />
         </Action.Tray>
-        {children}
+        <section className="modal-child">{children}</section>
       </section>
     </div>
   );

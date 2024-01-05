@@ -84,27 +84,27 @@ Toggle.propTypes = {
   onClickFalse: PropTypes.func,
 };
 
-export function Toggle({
-  onClickTrue,
-  onClickFalse,
-  showText = false,
-  buttonText = "Toggle",
-}) {
+export function Toggle({ showText = true, onClickTrue, onClickFalse }) {
   const [isToggled, toggle] = useState(false);
+  const toggleOnOffStyle = isToggled ? "ToggleFalse" : "ToggleTrue";
+  const toggleOnOffText = isToggled ? "✓" : "X";
   const clicked = () => {
+    console.log(isToggled);
     if (isToggled == true) {
-      onClickTrue;
+      onClickTrue();
     } else {
-      onClickFalse;
+      onClickFalse();
     }
     toggle(!isToggled);
   };
   return (
-    <Action
-      buttonText={buttonText}
-      onClick={clicked}
-      showText={showText}
-    ></Action>
+    <div className={toggleOnOffStyle}>
+      <Action
+        buttonText={toggleOnOffText}
+        onClick={() => clicked()}
+        showText={showText}
+      ></Action>
+    </div>
   );
 }
 

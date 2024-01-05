@@ -1,11 +1,11 @@
 .grid-container {
+  display: flex;
+  flex-direction: column;
   .grid-row {
-    display: grid;
     grid-auto-flow: column;
     .grid-column {
       display: inline-grid;
-      background-color: aqua;
-      height: 50px;
+      height: 30px;
       justify-content: center;
     }
   }

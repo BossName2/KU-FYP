@@ -2,22 +2,26 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import GridForm from "../UI/GridForm";
 import apiUrl from "../../api/apiUrl.jsx";
+import api from "../../api/Api.jsx";
 
 const initialAvaliblity = {
   userID: `0`,
   TimeslotID: `0`,
+  DayID: `0`,
 };
 
-function AvailablityForm({ onCancel, onSuccess }) {
+function AvailablityForm({ onSuccess }) {
   // Initialisation ------------------------------
   const conformance = {
     html2js: {
       userID: (value) => parseInt(value),
       TimeslotID: (value) => parseInt(value),
+      DayID: (value) => parseInt(value),
     },
     js2html: {
       userID: (value) => parseInt(value),
       TimeslotID: (value) => parseInt(value),
+      DayID: (value) => parseInt(value),
     },
   };
   const apiURL = apiUrl;
@@ -56,14 +60,24 @@ function AvailablityForm({ onCancel, onSuccess }) {
   // Handlers ------------------------------------
 
   const handlePost = async (timeID, dayID) => {
-    setAvailability({ userID: `0`, TimeslotID: `${timeID}` });
+    setAvailability({
+      userID: `0`,
+      TimeslotID: `${timeID}`,
+      DayID: `${dayID}`,
+    });
+    console.log(timeID + "," + dayID);
     console.log(`Availability=[${JSON.stringify(availability)}]`);
     const result = await apiPost(endpoint, availability);
     if (result.isSuccess) onSuccess();
     else alert(result.message);
   };
   const handleDelete = async (timeID, dayID) => {
-    setAvailability({ userID: `0`, TimeslotID: `${timeID}` });
+    setAvailability({
+      userID: `0`,
+      TimeslotID: `${timeID}`,
+      DayID: `${dayID}`,
+    });
+    console.log(timeID + "," + dayID);
     console.log(`Availability=[${JSON.stringify(availability)}]`);
     const result = await apiDelete(endpoint, availability);
     if (result.isSuccess) onSuccess();
@@ -74,7 +88,12 @@ function AvailablityForm({ onCancel, onSuccess }) {
   return (
     <div className="availablityForm">
       <div className="FormTray">
-        <GridForm row={timeslotID} column={dayID} />
+        <GridForm
+          row={dayID}
+          column={timeslotID}
+          onClickTrue={(timeID, dayID) => handlePost(timeID, dayID)}
+          onClickFalse={(timeID, dayID) => handleDelete(timeID, dayID)}
+        />
       </div>
     </div>
   );
