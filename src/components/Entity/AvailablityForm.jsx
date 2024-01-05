@@ -4,8 +4,10 @@ import GridForm from "../UI/GridForm";
 import apiUrl from "../../api/apiUrl.jsx";
 import api from "../../api/Api.jsx";
 
+const dayEndpoint = `/days`;
+const timeslotEndpoint = `/timeslots`;
 const initialAvaliblity = {
-  userID: `0`,
+  UserID: `0`,
   TimeslotID: `0`,
   DayID: `0`,
 };
@@ -29,8 +31,10 @@ function AvailablityForm({ onSuccess }) {
 
   // State ---------------------------------------
   const [availability, setAvailability] = useState(initialAvaliblity);
-  const [timeslotID, setTimeslotID] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-  const [dayID, setDayID] = useState([1, 2, 3, 4, 5]);
+  const [timeslotID, setTimeslotID] = useState([]);
+  const [timeslots, setTimeslots] = useState([]);
+  const [dayID, setDayID] = useState([]);
+  const [days, setDays] = useState([]);
 
   const apiPost = async (endpoint, record) => {
     // Build request object
@@ -39,6 +43,11 @@ function AvailablityForm({ onSuccess }) {
       body: JSON.stringify(record),
       headers: { "Content-type": "application/json" },
     };
+    const response = await fetch(endpoint, request);
+    const result = await response.json();
+    return response.status >= 200 && response.status < 300
+      ? { isSuccess: true }
+      : { isSuccess: false, message: result.message };
   };
   const apiDelete = async (endpoint, record) => {
     // Build request object
@@ -47,6 +56,32 @@ function AvailablityForm({ onSuccess }) {
       body: JSON.stringify(record),
       headers: { "Content-type": "application/json" },
     };
+    const response = await fetch(endpoint, request);
+    const result = await response.json();
+    return response.status >= 200 && response.status < 300
+      ? { isSuccess: true }
+      : { isSuccess: false, message: result.message };
+  };
+
+  const apiGetDay = async (endpoint) => {
+    const response = await api.get(endpoint);
+    if (response.isSuccess) {
+      setDayID(response.result.map((day) => day.DayID));
+      setDays(response.result.map((day) => day.Day));
+    } else {
+      console.log("No Days found");
+    }
+    console.log(response.result);
+  };
+  const apiGetTimeslot = async (endpoint) => {
+    const response = await api.get(endpoint);
+    if (response.isSuccess) {
+      setTimeslotID(response.result.map((timeslot) => timeslot.TimeslotsID));
+      setTimeslots(response.result.map((timeslot) => timeslot.TimeStart));
+    } else {
+      console.log("No timeslot found");
+    }
+    console.log(response.result);
   };
 
   // Call the Fetch
@@ -56,12 +91,15 @@ function AvailablityForm({ onSuccess }) {
   //     ? { isSuccess: true }
   //     : { isSuccess: false, message: result.message };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    apiGetTimeslot(timeslotEndpoint);
+    apiGetDay(dayEndpoint);
+  }, []);
   // Handlers ------------------------------------
 
   const handlePost = async (timeID, dayID) => {
     setAvailability({
-      userID: `0`,
+      UserID: `1`,
       TimeslotID: `${timeID}`,
       DayID: `${dayID}`,
     });
@@ -73,7 +111,7 @@ function AvailablityForm({ onSuccess }) {
   };
   const handleDelete = async (timeID, dayID) => {
     setAvailability({
-      userID: `0`,
+      UserID: `1`,
       TimeslotID: `${timeID}`,
       DayID: `${dayID}`,
     });
@@ -89,10 +127,12 @@ function AvailablityForm({ onSuccess }) {
     <div className="availablityForm">
       <div className="FormTray">
         <GridForm
-          row={dayID}
-          column={timeslotID}
-          onClickTrue={(timeID, dayID) => handlePost(timeID, dayID)}
-          onClickFalse={(timeID, dayID) => handleDelete(timeID, dayID)}
+          rowTitle={timeslots}
+          columnTitle={days}
+          row={timeslotID}
+          column={dayID}
+          onClickTrue={(timeID, dayID) => handleDelete(timeID, dayID)}
+          onClickFalse={(timeID, dayID) => handlePost(timeID, dayID)}
         />
       </div>
     </div>

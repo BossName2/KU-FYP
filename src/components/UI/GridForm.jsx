@@ -2,19 +2,26 @@ import Action from "./Action";
 import PropTypes from "prop-types";
 import "./GridForm.scss";
 
-const GridForm = ({ row, column, onClickTrue, onClickFalse }) => {
+const GridForm = ({
+  rowTitle,
+  columnTitle,
+  row,
+  column,
+  onClickTrue,
+  onClickFalse,
+}) => {
   return (
     <div className="grid-container">
       <div className="grid-row">
-        <div className="grid-column"></div>
-        {column.map((item, index) => (
+        <div className="grid-column">. .</div>
+        {columnTitle.map((item, index) => (
           <div key={index} className="grid-column">
-            Day
+            {item}
           </div>
         ))}
         {row.map((rowNum, index) => (
           <div key={index} className="grid-row">
-            Time
+            {rowTitle[index]}
             {column.map((item, index) => (
               <div key={index} className="grid-column">
                 <Action.Tray>
@@ -33,6 +40,8 @@ const GridForm = ({ row, column, onClickTrue, onClickFalse }) => {
   );
 };
 GridForm.propTypes = {
+  columnTitle: PropTypes.array,
+  rowTitle: PropTypes.array,
   column: PropTypes.array,
   row: PropTypes.array,
   onClickTrue: PropTypes.func,
