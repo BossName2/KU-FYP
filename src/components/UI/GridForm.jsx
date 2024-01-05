@@ -13,7 +13,7 @@ const GridForm = ({
   return (
     <div className="grid-container">
       <div className="grid-row">
-        <div className="grid-column">. .</div>
+        <div className="grid-column"></div>
         {columnTitle.map((item, index) => (
           <div key={index} className="grid-column">
             {item}
@@ -21,7 +21,9 @@ const GridForm = ({
         ))}
         {row.map((rowNum, index) => (
           <div key={index} className="grid-row">
-            {rowTitle[index]}
+            <div key={index} className="grid-column">
+              {rowTitle[index]}
+            </div>
             {column.map((item, index) => (
               <div key={index} className="grid-column">
                 <Action.Tray>

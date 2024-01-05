@@ -6,7 +6,8 @@
     .grid-column {
       display: inline-grid;
       height: 30px;
-      justify-content: center;
+      width: 50px;
+      justify-content: space-between;
     }
   }
 }
